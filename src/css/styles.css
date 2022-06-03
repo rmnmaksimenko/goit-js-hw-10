@@ -18,3 +18,34 @@ body {
   max-width: 320px;
   margin-bottom: 16px;
 }
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+.country-big {
+  font-size: 36px;
+  font-weight: 700;
+  padding-top: 20px;
+  padding-bottom: 30px;
+  line-height: 0;
+}
+
+.country-small {
+  font-size: 24px;
+}
+
+.flag {
+  width: 30px;
+  margin-right: 12px;
+}
+
+.country-info {
+  line-height: 2;
+  font-size: 18px;
+}
+
+.span {
+  font-weight: 700;
+}
