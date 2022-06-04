@@ -47,7 +47,7 @@ function search(e) {
         // console.log(r);
       } else if (r.length === 1) {
         const capital = r[0].capital;
-        const population = separator(r[0].population);
+        const population = separatedigits(r[0].population);
         const languagesObj = r[0].languages;
         const name = r[0].name.official;
         const flag = r[0].flags.svg;
@@ -79,6 +79,6 @@ function search(e) {
     .catch(e => console.log(e));
 }
 
-function separator(x) {
+function separatedigits(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
