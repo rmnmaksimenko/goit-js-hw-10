@@ -1,5 +1,7 @@
 import debounce from 'lodash.debounce';
 import Notiflix from 'notiflix';
+import FindCountry from './fetch';
+findCountry = new FindCountry();
 
 const refs = {
   searchBox: document.querySelector('#search-box'),
@@ -15,7 +17,8 @@ function search(e) {
   if (!searchValue) {
     return;
   }
-  fetchCountries(searchValue)
+  findCountry
+    .fetchCountry(searchValue)
     .then(r => {
       if (r === 0) {
         Notiflix.Notify.failure('Oops, there is no country with that name');
@@ -41,10 +44,10 @@ function search(e) {
         refs.countryList.classList.add('country-small');
         refs.countryList.innerHTML = text;
         refs.countryInfo.innerHTML = '';
-        console.log(r);
+        // console.log(r);
       } else if (r.length === 1) {
         const capital = r[0].capital;
-        const population = r[0].population;
+        const population = separator(r[0].population);
         const languagesObj = r[0].languages;
         const name = r[0].name.official;
         const flag = r[0].flags.svg;
@@ -70,23 +73,12 @@ function search(e) {
         refs.countryList.classList.add('country-big');
         refs.countryList.innerHTML = svg + name;
         refs.countryInfo.innerHTML = text;
-        console.log(r, flag);
+        // console.log(r, flag);
       }
     })
     .catch(e => console.log(e));
 }
 
-function fetchCountries(country) {
-  if (!country) return;
-  return fetch(
-    `https://restcountries.com/v3.1/name/${country}?fields=name,capital,population,flags,svg,languages`
-  )
-    .then(r => {
-      if (!r.ok) {
-        console.log(r);
-        return 0;
-      }
-      return r.json();
-    })
-    .catch(e => console.log(e));
+function separator(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
