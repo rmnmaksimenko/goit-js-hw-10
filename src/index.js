@@ -1,7 +1,7 @@
 import debounce from 'lodash.debounce';
 import Notiflix from 'notiflix';
 import FindCountry from './fetch';
-findCountry = new FindCountry();
+const findCountry = new FindCountry();
 
 const refs = {
   searchBox: document.querySelector('#search-box'),
