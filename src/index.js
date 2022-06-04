@@ -8,12 +8,14 @@ const refs = {
   countryInfo: document.querySelector('.country-info'),
   countryList: document.querySelector('.country-list'),
 };
+
+refs.countryList.addEventListener('click', clickOnTheList);
 const DEBOUNCE_DELAY = 400;
 
 refs.searchBox.addEventListener('input', debounce(search, DEBOUNCE_DELAY));
 
-function search(e) {
-  const searchValue = e.target.value.trim();
+function search() {
+  const searchValue = refs.searchBox.value.trim();
   if (!searchValue) {
     return;
   }
@@ -94,10 +96,21 @@ function getCountryList(r) {
     const name = r[i].name.official;
     const flag = r[i].flags.svg;
     const svg = `<img class='flag' src="${flag}" alt="${name}">`;
-    text += svg + name + '<br>';
+    text += '<li class="list-link">' + svg + name + '<br>' + '</li>';
   }
   refs.countryList.classList.remove('country-big');
   refs.countryList.classList.add('country-small');
   refs.countryList.innerHTML = text;
   refs.countryInfo.innerHTML = '';
+}
+
+function clickOnTheList(e) {
+  e.preventDefault();
+  if (e.target.nodeName !== 'LI') {
+    return;
+  }
+  console.log(e.target.nodeName);
+  console.log(e.target.textContent);
+  refs.searchBox.value = e.target.textContent;
+  search();
 }

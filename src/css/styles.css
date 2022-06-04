@@ -49,3 +49,12 @@ ul {
 .span {
   font-weight: 700;
 }
+
+.list-link {
+}
+
+.list-link:hover,
+.list-link:focus {
+  color: #222288;
+  text-decoration: underline;
+}
